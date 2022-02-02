@@ -10,14 +10,14 @@ services:
       - FLASK_APP=app.py
       - FLASK_RUN_PORT=8000
       - FLASK_ENV=development
-      - DB_HOST=postgresql://user:pass@db:5432/database
+      - DB_HOST=postgresql://user:pass@postgres:5432/database
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres
     volumes:
-      - ./db/data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
     expose:
       - 5432
     environment:
@@ -31,3 +31,6 @@ services:
       - 80:80
     depends_on:
       - web
+
+volumes:
+  postgres_data:

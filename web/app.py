@@ -1,23 +1,11 @@
-from dataclasses import dataclass
 from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
-
+from models import db, Item
 from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-db = SQLAlchemy(app)
-
-
-@dataclass
-class Item(db.Model):
-    id: int
-    name: str
-
-    __tablename__ = "items"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+db.init_app(app)
 
 
 @app.route("/")

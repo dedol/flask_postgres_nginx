@@ -12,15 +12,18 @@ services:
       - FLASK_APP=app.py
       - FLASK_RUN_PORT=8000
       - FLASK_ENV=development
-      - DB_HOST=postgresql://user:pass@db:5432/database
+      - DB_HOST=postgresql://user:pass@postgres:5432/database
 
-  db:
+  postgres:
     image: postgres
     volumes:
-      - ./db/data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=database
+
+volumes:
+  postgres_data:
